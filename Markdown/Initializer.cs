@@ -20,10 +20,41 @@ namespace Markdown
 		{
 			return new []
 			{
-				new TokenDescription("Text", null, null, null),
-				new TokenDescription("Italics", "_", "<em>", null),
-				new TokenDescription("Strong", "__", "<strong>", null)
+				new TokenDescription("Text", null, null, (previous, next)=> TagType.Undefined),
+				new TokenDescription("Italics", "_", "<em>", TagTypeDeterminantForItalicsAndBold),
+				new TokenDescription("Strong", "__", "<strong>", TagTypeDeterminantForItalicsAndBold)
 			};
+		}
+
+		private static TagType TagTypeDeterminantForItalicsAndBold(char? previousSymbol, char? nextSymbol)
+		{
+			if (previousSymbol == '\\')
+				return TagType.Undefined;
+
+
+			if (previousSymbol == null || previousSymbol == ' ')
+			{
+				if (nextSymbol == null)
+					return TagType.Undefined;
+				if (nextSymbol != ' ')
+					return TagType.Opening;
+
+			}
+
+			if (nextSymbol == null || nextSymbol == ' ')
+			{
+				if (previousSymbol == null)
+					return TagType.Undefined;
+				if (previousSymbol != ' ')
+					return TagType.Closing;
+			}
+
+			if (!char.IsLetterOrDigit((char)previousSymbol) && char.IsLetterOrDigit((char)nextSymbol))
+				return TagType.Opening;
+
+			if (char.IsLetterOrDigit((char)previousSymbol) && !char.IsLetterOrDigit((char)nextSymbol))
+				return TagType.Closing;
+			return TagType.Undefined;
 		}
 	}
 }

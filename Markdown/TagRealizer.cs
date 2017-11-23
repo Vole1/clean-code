@@ -12,10 +12,10 @@ namespace Markdown
 		private static TokenDescription[] TokensDescriptions { get; set; }
 
 
-		public static void Initialize(string textTypeIn, TokenDescription[] tokenDescriptionsIn)
+		public static void Initialize(string textType, TokenDescription[] tokenDescriptions)
 		{
-			TextType = textTypeIn;
-			TokensDescriptions = tokenDescriptionsIn;
+			TextType = textType;
+			TokensDescriptions = tokenDescriptions;
 		}
 
 		public static string RealizeTokens(Token[] tokens)

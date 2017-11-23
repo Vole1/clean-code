@@ -17,6 +17,8 @@ namespace Markdown
 
 			TokenAnalizer.Initialize(textType, tokenDescriptions);
 			var finalTokens = TokenAnalizer.Analize(parsedTokens);
+
+			TagRealizer.Initialize(textType, tokenDescriptions);
 			return TagRealizer.RealizeTokens(finalTokens);
 
 		}

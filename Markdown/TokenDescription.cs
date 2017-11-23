@@ -18,7 +18,7 @@ namespace Markdown
 		{
 			get
 			{
-				return new StringBuilder(OpeningTag).Insert(1, "/").ToString();
+				return OpeningTag != null ? new StringBuilder(OpeningTag).Insert(1, "/").ToString() : null;
 			}
 		}
 

@@ -11,6 +11,8 @@ namespace Markdown
 	{
 		static void Main(string[] args)
 		{
+			var a = new Md().RenderToHtml("__abc__");
+			var b = 0;
 		}
 	}
 }
