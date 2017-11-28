@@ -59,7 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Initializer.cs" />
-    <Compile Include="LexicalAnalizer.cs" />
+    <Compile Include="LexicalAnalyzer.cs" />
     <Compile Include="LexicalAnalizerTest.cs" />
     <Compile Include="Md.cs" />
     <Compile Include="Parser.cs" />
@@ -68,8 +68,9 @@
     <Compile Include="RawToken.cs" />
     <Compile Include="TagRealizer.cs" />
     <Compile Include="TagRealizerTests.cs" />
+    <Compile Include="TagType.cs" />
     <Compile Include="Token.cs" />
-    <Compile Include="TokenAnalizer.cs" />
+    <Compile Include="TokenAnalyzer.cs" />
     <Compile Include="TokenAnalizerTests.cs" />
     <Compile Include="TokenDescription.cs" />
   </ItemGroup>

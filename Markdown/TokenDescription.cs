@@ -14,21 +14,15 @@ namespace Markdown
 		public Func<char?, char?, TagType> TagTypeDeterminant { get; }
 		public string OpeningTag { get; }
 
-		public string ClosingTag
-		{
-			get
-			{
-				return OpeningTag != null ? new StringBuilder(OpeningTag).Insert(1, "/").ToString() : null;
-			}
-		}
+		public string ClosingTag => OpeningTag != null ? new StringBuilder(OpeningTag).Insert(1, "/").ToString() : null;
 
-		public TokenDescription(string type, string pattern, string openingTag, Func<char?, char?, TagType> tagTypeDeterminant)
+		public TokenDescription(string type, string pattern, string openingTag,
+			Func<char?, char?, TagType> tagTypeDeterminant)
 		{
 			Type = type;
 			this.pattern = pattern;
 			OpeningTag = openingTag;
 			TagTypeDeterminant = tagTypeDeterminant;
 		}
-
 	}
 }

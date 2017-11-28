@@ -6,19 +6,17 @@ using System.Threading.Tasks;
 
 namespace Markdown
 {
-	public static class TagRealizer
+	public class TagRealizer
 	{
-		private static string TextType { get; set; }
-		private static TokenDescription[] TokensDescriptions { get; set; }
+		private string TextType { get; }
 
 
-		public static void Initialize(string textType, TokenDescription[] tokenDescriptions)
+		public TagRealizer(string textType)
 		{
 			TextType = textType;
-			TokensDescriptions = tokenDescriptions;
 		}
 
-		public static string RealizeTokens(Token[] tokens)
+		public string RealizeTokens(Token[] tokens)
 		{
 			var result = new StringBuilder();
 			foreach (var currentToken in tokens)
@@ -29,7 +27,7 @@ namespace Markdown
 					continue;
 				}
 				var token = currentToken;
-				var currentTd = TokensDescriptions.Single(td => td.Type == token.Type);
+				var currentTd = token.Description;
 				var valueToAppend = currentToken.TagType == TagType.Opening ? currentTd.OpeningTag : currentTd.ClosingTag;
 				result.Append(valueToAppend);
 			}

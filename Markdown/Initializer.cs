@@ -6,14 +6,6 @@ using System.Threading.Tasks;
 
 namespace Markdown
 {
-
-	public enum TagType
-	{
-		Opening,
-		Closing,
-		Undefined
-	}
-
 	public static class Initializer
 	{
 		public static TokenDescription[] GetTokenDescriptions()

@@ -10,11 +10,13 @@ namespace Markdown
 	{
 		public string Type { get; }
 		public string Value { get; }
+		public TokenDescription Description { get; }
 
-		public RawToken(string type, string value=null)
+		public RawToken(string type, TokenDescription description, string value=null)
 		{
 			Type = type;
 			Value = value;
+			Description = description;
 		}
 
 	}

@@ -31,20 +31,19 @@ namespace Markdown
 			var input = "haha _go __away__from_";
 			var output = new[]
 			{
-				new RawToken("Text", "haha "),
-				new RawToken("Italics"),
-				new RawToken("Text", "go "),
-				new RawToken("Bold"),
-				new RawToken("Text", "away"),
-				new RawToken("Bold"),
-				new RawToken("Text", "from"),
-				new RawToken("Italics")
+				new RawToken("Text", tokensDescriptionsArray[0], "haha "),
+				new RawToken("Italics", tokensDescriptionsArray[1]),
+				new RawToken("Text", tokensDescriptionsArray[0], "go "),
+				new RawToken("Bold", tokensDescriptionsArray[2]),
+				new RawToken("Text", tokensDescriptionsArray[0], "away"),
+				new RawToken("Bold", tokensDescriptionsArray[2]),
+				new RawToken("Text", tokensDescriptionsArray[0], "from"),
+				new RawToken("Italics", tokensDescriptionsArray[1])
 			};
 
-			Parser.Initialize("Text", tokensDescriptionsArray);
-			Parser.Parse(input).ShouldBeEquivalentTo(output);
+			var parser = new Parser("Text", tokensDescriptionsArray);
+			parser.Parse(input).ShouldBeEquivalentTo(output);
 		}
-
 
 		[Test]
 		public void Parser_ReturnValidOutput_ForDoubleTagging()
@@ -52,15 +51,15 @@ namespace Markdown
 			var input = "___kek___";
 			var output = new[]
 			{
-				new RawToken("Bold"),
-				new RawToken("Italics"),
-				new RawToken("Text", "kek"),
-				new RawToken("Bold"),
-				new RawToken("Italics")
+				new RawToken("Bold", tokensDescriptionsArray[2]),
+				new RawToken("Italics", tokensDescriptionsArray[1]),
+				new RawToken("Text", tokensDescriptionsArray[0], "kek"),
+				new RawToken("Bold", tokensDescriptionsArray[2]),
+				new RawToken("Italics", tokensDescriptionsArray[1])
 			};
 
-			Parser.Initialize("Text", tokensDescriptionsArray);
-			Parser.Parse(input).ShouldBeEquivalentTo(output);
+			var parser = new Parser("Text", tokensDescriptionsArray);
+			parser.Parse(input).ShouldBeEquivalentTo(output);
 		}
 
 	}

@@ -23,7 +23,7 @@ namespace Markdown
 
 				new TokenDescription("Italics", "_", "<em>", TagTypeDeterminantForItalicsAndBold),
 
-				new TokenDescription("Strong", "__", "<strong>", TagTypeDeterminantForItalicsAndBold)
+				new TokenDescription("Bold", "__", "<strong>", TagTypeDeterminantForItalicsAndBold)
 			};
 		}
 
@@ -32,33 +32,33 @@ namespace Markdown
 		{
 			var inputTokens = new[]
 			{
-				new RawToken("Text", "haha "),
-				new RawToken("Italics"),
-				new RawToken("Text", "go "),
-				new RawToken("Strong"),
-				new RawToken("Text", "aw"),
-				new RawToken("Italics"),
-				new RawToken("Text", "ay"),
-				new RawToken("Strong"),
-				new RawToken("Text", " from"),
-				new RawToken("Italics")
+				new RawToken("Text", tokensDescriptionsArray[0], "haha "),
+				new RawToken("Italics", tokensDescriptionsArray[1]),
+				new RawToken("Text", tokensDescriptionsArray[0], "go "),
+				new RawToken("Bold", tokensDescriptionsArray[2]),
+				new RawToken("Text", tokensDescriptionsArray[0], "aw"),
+				new RawToken("Italics", tokensDescriptionsArray[1]),
+				new RawToken("Text", tokensDescriptionsArray[0], "ay"),
+				new RawToken("Bold", tokensDescriptionsArray[2]),
+				new RawToken("Text", tokensDescriptionsArray[0], " from"),
+				new RawToken("Italics", tokensDescriptionsArray[1])
 			};
 
 			var output = new []
 			{
-				new Token("Text", TagType.Undefined, "haha "),
-				new Token("Italics", TagType.Opening),
-				new Token("Text", TagType.Undefined, "go "),
-				new Token("Strong", TagType.Opening),
-				new Token("Text", TagType.Undefined, "aw_ay"),
-				new Token("Strong", TagType.Closing),
-				new Token("Text", TagType.Undefined, " from"),
+				new Token("Text", tokensDescriptionsArray[0],  TagType.Undefined, "haha "),
+				new Token("Italics", tokensDescriptionsArray[1], TagType.Opening),
+				new Token("Text", tokensDescriptionsArray[0], TagType.Undefined, "go "),
+				new Token("Bold", tokensDescriptionsArray[2], TagType.Opening),
+				new Token("Text", tokensDescriptionsArray[0], TagType.Undefined, "aw_ay"),
+				new Token("Bold", tokensDescriptionsArray[2], TagType.Closing),
+				new Token("Text", tokensDescriptionsArray[0], TagType.Undefined, " from"),
 
-				new Token("Italics", TagType.Closing)
+				new Token("Italics", tokensDescriptionsArray[1], TagType.Closing)
 			};
 
-			LexicalAnalizer.Initialize("Text", tokensDescriptionsArray);
-			LexicalAnalizer.Analize(inputTokens).ShouldBeEquivalentTo(output);
+			var lexicalAnalyser = new LexicalAnalyzer("Text", tokensDescriptionsArray[0]);
+			lexicalAnalyser.Analyze(inputTokens).ShouldBeEquivalentTo(output);
 		}
 
 		[Test]
@@ -66,30 +66,30 @@ namespace Markdown
 		{
 			var inputTokens = new[]
 			{
-				new RawToken("Text", "haha "),
-				new RawToken("Italics"),
-				new RawToken("Text", "go "),
-				new RawToken("Strong"),
-				new RawToken("Text", "aw"),
-				new RawToken("Italics"),
-				new RawToken("Text", "ay"),
-				new RawToken("Strong"),
-				new RawToken("Text", "from"),
-				new RawToken("Italics")
+				new RawToken("Text", tokensDescriptionsArray[0], "haha "),
+				new RawToken("Italics", tokensDescriptionsArray[1]),
+				new RawToken("Text", tokensDescriptionsArray[0], "go "),
+				new RawToken("Bold", tokensDescriptionsArray[2]),
+				new RawToken("Text", tokensDescriptionsArray[0], "aw"),
+				new RawToken("Italics", tokensDescriptionsArray[1]),
+				new RawToken("Text", tokensDescriptionsArray[0], "ay"),
+				new RawToken("Bold", tokensDescriptionsArray[2]),
+				new RawToken("Text", tokensDescriptionsArray[0], "from"),
+				new RawToken("Italics", tokensDescriptionsArray[1])
 			};
 
 			var output = new[]
 			{
-				new Token("Text", TagType.Undefined, "haha "),
-				new Token("Italics", TagType.Opening),
-				new Token("Text", TagType.Undefined, "go "),
-				new Token("Strong", TagType.Opening),
-				new Token("Text", TagType.Undefined, "aw_ay__from"),
-				new Token("Italics", TagType.Closing)
+				new Token("Text", tokensDescriptionsArray[0], TagType.Undefined, "haha "),
+				new Token("Italics", tokensDescriptionsArray[1], TagType.Opening),
+				new Token("Text", tokensDescriptionsArray[0], TagType.Undefined, "go "),
+				new Token("Bold", tokensDescriptionsArray[2], TagType.Opening),
+				new Token("Text", tokensDescriptionsArray[0], TagType.Undefined, "aw_ay__from"),
+				new Token("Italics", tokensDescriptionsArray[1], TagType.Closing)
 			};
 
-			LexicalAnalizer.Initialize("Text", tokensDescriptionsArray);
-			LexicalAnalizer.Analize(inputTokens).ShouldBeEquivalentTo(output);
+			var lexicalAnalyzer = new LexicalAnalyzer("Text", tokensDescriptionsArray[0]);
+			lexicalAnalyzer.Analyze(inputTokens).ShouldBeEquivalentTo(output);
 		}
 
 		[Test]
@@ -97,24 +97,24 @@ namespace Markdown
 		{
 			var inputTokens = new[]
 			{
-				new RawToken("Strong"),
-				new RawToken("Italics"),
-				new RawToken("Text", "kek"),
-				new RawToken("Strong"),
-				new RawToken("Italics")
+				new RawToken("Bold", tokensDescriptionsArray[2]),
+				new RawToken("Italics", tokensDescriptionsArray[1]),
+				new RawToken("Text", tokensDescriptionsArray[0], "kek"),
+				new RawToken("Bold", tokensDescriptionsArray[2]),
+				new RawToken("Italics", tokensDescriptionsArray[1])
 			};
 
 			var output = new[]
 			{
-				new Token("Strong", TagType.Opening),
-				new Token("Italics", TagType.Opening),
-				new Token("Text", TagType.Undefined, "kek"),
-				new Token("Strong", TagType.Closing),
-				new Token("Italics", TagType.Closing)
+				new Token("Bold", tokensDescriptionsArray[2], TagType.Opening),
+				new Token("Italics", tokensDescriptionsArray[1], TagType.Opening),
+				new Token("Text", tokensDescriptionsArray[0], TagType.Undefined, "kek"),
+				new Token("Bold", tokensDescriptionsArray[2], TagType.Closing),
+				new Token("Italics", tokensDescriptionsArray[1], TagType.Closing)
 			};
 
-			LexicalAnalizer.Initialize("Text", tokensDescriptionsArray);
-			LexicalAnalizer.Analize(inputTokens).ShouldBeEquivalentTo(output);
+			var lexicalAnalyzer = new LexicalAnalyzer("Text", tokensDescriptionsArray[0]);
+			lexicalAnalyzer.Analyze(inputTokens).ShouldBeEquivalentTo(output);
 		}
 
 		private TagType TagTypeDeterminantForItalicsAndBold(char? previousSymbol, char? nextSymbol)

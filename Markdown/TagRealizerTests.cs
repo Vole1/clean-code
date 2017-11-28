@@ -29,17 +29,17 @@ namespace Markdown
 		{
 			var input = new[]
 			{
-				new Token("Bold", TagType.Opening),
-				new Token("Italics", TagType.Opening),
-				new Token("Text", TagType.Undefined, "kek"),
-				new Token("Italics", TagType.Closing),
-				new Token("Bold", TagType.Closing)
+				new Token("Bold", tokensDescriptionsArray[2], TagType.Opening),
+				new Token("Italics", tokensDescriptionsArray[1], TagType.Opening),
+				new Token("Text", tokensDescriptionsArray[0], TagType.Undefined, "kek"),
+				new Token("Italics", tokensDescriptionsArray[1], TagType.Closing),
+				new Token("Bold", tokensDescriptionsArray[2], TagType.Closing)
 			};
 
 			var output = "<strong><em>kek</em></strong>";
 
-			TagRealizer.Initialize("Text", tokensDescriptionsArray);
-			TagRealizer.RealizeTokens(input).ShouldBeEquivalentTo(output);
+			var tagRealizer = new TagRealizer("Text");
+			tagRealizer.RealizeTokens(input).ShouldBeEquivalentTo(output);
 		}
 	}
 }

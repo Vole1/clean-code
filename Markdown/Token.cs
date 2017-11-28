@@ -11,19 +11,14 @@ namespace Markdown
 		public string Type { get; }
 		public TagType TagType { get; }
 		public string Value { get; private set; }
+		public TokenDescription Description { get; }
 
-		public Token(string type, TagType tagType, string value)
+		public Token(string type, TokenDescription description, TagType tagType, string value = null)
 		{
 			Type = type;
+			Description = description;
 			TagType = tagType;
 			Value = value;
-		}
-
-		public Token(string type, TagType tagType)
-		{
-			Type = type;
-			TagType = tagType;
-			Value = null;
 		}
 
 		public void AmplifyValue(string addition)
